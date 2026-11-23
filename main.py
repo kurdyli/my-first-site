@@ -2,12 +2,13 @@ import sqlite3
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 app = FastAPI()
 
-DATABASE_PATH = Path("site.db")
+BASE_DIR = Path(__file__).resolve().parent
+DATABASE_PATH = BASE_DIR / "site.db"
 
 
 class MessageCreate(BaseModel):
@@ -83,4 +84,11 @@ def create_message(message: MessageCreate):
     return {"id": message_id, "text": text, "author": "Гость"}
 
 
-app.mount("/", StaticFiles(directory=".", html=True), name="site")
+@app.get("/")
+def get_site():
+    return FileResponse(BASE_DIR / "index.html")
+
+
+@app.get("/styles.css")
+def get_styles():
+    return FileResponse(BASE_DIR / "styles.css", media_type="text/css")
