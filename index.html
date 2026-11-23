@@ -22,12 +22,33 @@
 
   <button id="hello-button">Нажми меня</button>
 
+  <p id="api-message">Получаем сообщение от Python...</p>
+
   <script>
     const button = document.getElementById("hello-button");
+    const apiMessage = document.getElementById("api-message");
 
     button.addEventListener("click", () => {
       alert("Привет! Кнопка работает.");
     });
+
+    async function loadApiMessage() {
+      try {
+        const response = await fetch("/api/message");
+
+        if (!response.ok) {
+          throw new Error("Сервер вернул ошибку");
+        }
+
+        const data = await response.json();
+        apiMessage.textContent = `${data.message} (${data.author})`;
+      } catch (error) {
+        apiMessage.textContent = "Не удалось получить сообщение от API.";
+        console.error(error);
+      }
+    }
+
+    loadApiMessage();
   </script>
-</body>`
+</body>
 </html>
