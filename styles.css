@@ -1,39 +1,120 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
-  display: grid;
-  place-content: center;
-  gap: 16px;
   padding: 24px;
-  box-sizing: border-box;
   background: #f3f7ff;
   color: #172033;
   font-family: Arial, sans-serif;
-  text-align: center;
+}
+
+.app-card {
+  width: min(100%, 680px);
+  margin: 40px auto;
+  padding: 32px;
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 12px 30px rgba(23, 32, 51, 0.12);
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
 }
 
 h1 {
-  margin: 0;
-  font-size: 42px;
+  font-size: clamp(32px, 6vw, 42px);
 }
 
-p {
-  margin: 0;
-  font-size: 20px;
+h2 {
+  margin-bottom: 12px;
+}
+
+.intro {
+  color: #526176;
+  font-size: 18px;
 }
 
 button {
-  justify-self: center;
   border: 0;
   border-radius: 10px;
-  padding: 14px 22px;
+  padding: 12px 18px;
   background: #2563eb;
   color: white;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
 }
 
-button:hover {
+button:hover:not(:disabled) {
   background: #1d4ed8;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+form {
+  margin-top: 28px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  min-width: 0;
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #aab6c8;
+  border-radius: 10px;
+  font: inherit;
+}
+
+.status {
+  min-height: 24px;
+  margin: 12px 0 0;
+  color: #31568f;
+}
+
+.messages-section {
+  margin-top: 28px;
+}
+
+#messages-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#messages-list li {
+  padding: 14px;
+  border-radius: 10px;
+  background: #edf3ff;
+  text-align: left;
+}
+
+@media (max-width: 560px) {
+  .app-card {
+    margin: 8px auto;
+    padding: 24px;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
 }
